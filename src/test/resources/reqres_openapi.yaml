@@ -1,0 +1,156 @@
+openapi: 3.0.0
+info:
+  title: ReqRes API
+  description: Fake data CRUD API
+  version: "1.0.0"
+servers:
+  - url: https://reqres.in/api
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+        email:
+          type: string
+        first_name:
+          type: string
+        last_name:
+          type: string
+        avatar:
+          type: string
+    Support:
+      type: object
+      properties:
+        url:
+          type: string
+        text:
+          type: string
+paths:
+  /users:
+    get:
+      summary: Fetches a user list
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+            example: 1
+        - in: query
+          name: per_page
+          schema:
+            type: integer
+            example: 5
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  page:
+                    type: integer
+                  per_page:
+                    type: integer
+                  total:
+                    type: integer
+                  total_pages:
+                    type: integer
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/User"
+                  support:
+                    $ref: "#/components/schemas/Support"
+
+    post:
+      summary: Creates a new user
+      requestBody:
+        description: the body required
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: password of user
+                first_name:
+                  type: string
+                  description: username of user
+                last_name:
+                  type: string
+                  description: username of user
+                avatar:
+                  type: string
+                  description: username of user
+              example:
+                email: bob@bob.com
+                first_name: Bob
+                last_name: Smith
+                avatar: https://reqres.in/img/faces/7-image.jpg
+        required: true
+      responses:
+        '201':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  email:
+                    type: string
+                    description: Email of the new user
+                  first_name:
+                    type: string
+                    description: First name of the new user
+                  last_name:
+                    type: string
+                    description: Last name of the new user
+                  avatar:
+                    type: string
+                    description: Avatar of the new user
+                  id:
+                    type: string
+                    description: ID of the new user
+                  createdAt:
+                    type: string
+                    description: Date time stamp of the new user creation
+  /users/{id}:
+    get:
+      summary: Fetches a user
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+            example: 1
+          required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: "#/components/schemas/User"
+                  support:
+                    $ref: "#/components/schemas/Support"
+        '404':
+          description: Unknown user
+    delete:
+      summary: Deletes a user
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+            example: 100
+          required: true
+      responses:
+        '204':
+          description: Success
