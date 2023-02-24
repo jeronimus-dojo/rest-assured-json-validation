@@ -5,7 +5,6 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.hamcrest.CoreMatchers;
-import org.testng.annotations.BeforeGroups;
 import org.testng.annotations.Test;
 
 import static io.restassured.RestAssured.given;
@@ -38,7 +37,7 @@ public class GetUserTest {
 
     }
 
-    @Test (groups={"testingFromResponse"})
+    @Test
     public void VerifyJsonSchemaFromResponse() {
         Response response;
         RestAssured.baseURI = "https://reqres.in";
@@ -51,7 +50,7 @@ public class GetUserTest {
                 .then()
                     .extract().response();
 
-        assertThat("JSON Schema is correct", response.asString(), matchesJsonSchemaInClasspath("jsonSchema.json"));
+        assertThat("JSON Schema is correct", response.asString(), matchesJsonSchemaInClasspath("json_schema_get_user.json"));
     }
 
     @Test
@@ -68,7 +67,7 @@ public class GetUserTest {
                     .header("Server", "cloudflare")
                     .body("data.email", equalTo("george.bluth@reqres.in")) // data.email is using Groovy GPath
                     .body("size()", CoreMatchers.is(2)) // Number of items in the object
-                    .body(matchesJsonSchemaInClasspath("jsonSchema.json"));
+                    .body(matchesJsonSchemaInClasspath("json_schema_get_user.json"));
     }
 
     @Test
@@ -87,6 +86,6 @@ public class GetUserTest {
                     .header("Server", "cloudflare")
                     .body("data.email", equalTo("george.bluth@reqres.in")) // data.email is using Groovy GPath
                     .body("size()", CoreMatchers.is(2)) // Number of items in the object
-                    .body(matchesJsonSchemaInClasspath("jsonSchema.json"));
+                    .body(matchesJsonSchemaInClasspath("json_schema_get_user.json"));
     }
 }
