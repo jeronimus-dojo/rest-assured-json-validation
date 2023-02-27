@@ -15,6 +15,7 @@
     <request.validator.version>2.24.0</request.validator.version>
     <aspectj.version>1.9.6</aspectj.version>
     <maven-surefire-plugin-version>3.0.0-M5</maven-surefire-plugin-version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
   <dependencies>
     <!-- Implementation of the SLF4J API for Logback, a reliable, generic, fast and flexible logging framework.-->
@@ -89,7 +90,6 @@
           </dependency>
         </dependencies>
       </plugin>
-
     </plugins>
   </build>
 </project>
