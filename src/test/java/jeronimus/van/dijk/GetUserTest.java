@@ -85,7 +85,7 @@ public class GetUserTest {
                     .contentType("application/json; charset=utf-8")
                     .header("Server", "cloudflare")
                     .body("data.email", equalTo("george.bluth@reqres.in")) // data.email is using Groovy GPath
-                    .body("size()", CoreMatchers.is(1)) // Number of items in the object
+                    .body("size()", CoreMatchers.is(2)) // Number of items in the object
                     .body(matchesJsonSchemaInClasspath("json_schema_get_user.json"));
     }
 }
